@@ -20,3 +20,6 @@ composer.json
 contributing.md
 license.txt
 readme.rst
+
+build/upload/*
+!build/upload/index.html
