@@ -36,6 +36,10 @@
  * @filesource
  */
 
+define('TIME_ZONE', 'Asia/Shanghai');
+date_default_timezone_set(TIME_ZONE);
+define('DS', DIRECTORY_SEPARATOR);
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -198,7 +202,7 @@ switch (ENVIRONMENT)
 
 	if (($_temp = realpath($system_path)) !== FALSE)
 	{
-		$system_path = $_temp.DIRECTORY_SEPARATOR;
+		$system_path = $_temp.DS;
 	}
 	else
 	{
@@ -206,8 +210,8 @@ switch (ENVIRONMENT)
 		$system_path = strtr(
 			rtrim($system_path, '/\\'),
 			'/\\',
-			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
-		).DIRECTORY_SEPARATOR;
+			DS.DS
+		).DS;
 	}
 
 	// Is the system path correct?
@@ -230,7 +234,7 @@ switch (ENVIRONMENT)
 	define('BASEPATH', $system_path);
 
 	// Path to the front controller (this file) directory
-	define('FCPATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
+	define('FCPATH', dirname(__FILE__).DS);
 
 	// Name of the "system" directory
 	define('SYSDIR', basename(BASEPATH));
@@ -247,16 +251,16 @@ switch (ENVIRONMENT)
 			$application_folder = strtr(
 				rtrim($application_folder, '/\\'),
 				'/\\',
-				DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+				DS.DS
 			);
 		}
 	}
-	elseif (is_dir(BASEPATH.$application_folder.DIRECTORY_SEPARATOR))
+	elseif (is_dir(BASEPATH.$application_folder.DS))
 	{
 		$application_folder = BASEPATH.strtr(
 			trim($application_folder, '/\\'),
 			'/\\',
-			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+			DS.DS
 		);
 	}
 	else
@@ -266,10 +270,10 @@ switch (ENVIRONMENT)
 		exit(3); // EXIT_CONFIG
 	}
 
-	define('APPPATH', $application_folder.DIRECTORY_SEPARATOR);
+	define('APPPATH', $application_folder.DS);
 
 	// The path to the "views" directory
-	if ( ! isset($view_folder[0]) && is_dir(APPPATH.'views'.DIRECTORY_SEPARATOR))
+	if ( ! isset($view_folder[0]) && is_dir(APPPATH.'views'.DS))
 	{
 		$view_folder = APPPATH.'views';
 	}
@@ -284,16 +288,16 @@ switch (ENVIRONMENT)
 			$view_folder = strtr(
 				rtrim($view_folder, '/\\'),
 				'/\\',
-				DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+				DS.DS
 			);
 		}
 	}
-	elseif (is_dir(APPPATH.$view_folder.DIRECTORY_SEPARATOR))
+	elseif (is_dir(APPPATH.$view_folder.DS))
 	{
 		$view_folder = APPPATH.strtr(
 			trim($view_folder, '/\\'),
 			'/\\',
-			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+			DS.DS
 		);
 	}
 	else
@@ -303,7 +307,7 @@ switch (ENVIRONMENT)
 		exit(3); // EXIT_CONFIG
 	}
 
-	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
+	define('VIEWPATH', $view_folder.DS);
 
 /*
  * --------------------------------------------------------------------
