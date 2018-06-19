@@ -39,6 +39,7 @@
 define('TIME_ZONE', 'Asia/Shanghai');
 date_default_timezone_set(TIME_ZONE);
 define('DS', DIRECTORY_SEPARATOR);
+define('TIMESTAMP', time());
 
 /*
  *---------------------------------------------------------------

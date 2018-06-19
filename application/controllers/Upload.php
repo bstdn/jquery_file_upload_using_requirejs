@@ -7,8 +7,16 @@
  */
 class Upload extends MY_Controller {
 
+    private $_thread_model_name = 'Thread_model';
+    /** @var Thread_model $_thread_model */
+    private $_thread_model = '';
+
     function __construct() {
         parent::__construct();
+
+        $this->load->model($this->_thread_model_name);
+        $model_name = $this->_thread_model_name;
+        $this->_thread_model = $this->$model_name;
 
         $this->_layout = null;
     }
@@ -32,7 +40,7 @@ class Upload extends MY_Controller {
             $result = array(
                 'files' => array(
                     array(
-                        'name'       => $upload_data['file_name'],
+                        'name'       => $upload_data['client_name'],
                         'size'       => $upload_data['file_size'],
                         'type'       => $upload_data['file_type'],
                         'error'      => $this->upload->display_errors('', ''),
@@ -45,17 +53,55 @@ class Upload extends MY_Controller {
             $result = array(
                 'files' => array(
                     array(
-                        'name'         => $upload_data['file_name'],
+                        'name'         => $upload_data['client_name'],
                         'size'         => $upload_data['file_size'],
                         'type'         => $upload_data['file_type'],
-                        'url'          => $upload_data['attach_path'],
-                        'thumbnailUrl' => $upload_data['thumbnail_path'],
+                        'url'          => $this->upload->attach_dir . $upload_data['attach_path'],
+                        'thumbnailUrl' => $this->upload->attach_dir . $upload_data['thumbnail_path'],
                         'deleteUrl'    => '',
                         'deleteType'   => 'DELETE',
                     ),
                 ),
             );
         }
+
+        echo json_encode($result);
+    }
+
+    public function file_upload() {
+        if($this->input->is_post()) {
+            $this->_file_upload_post();
+        } else {
+            $this->view();
+        }
+    }
+
+    protected function _file_upload_post() {
+        $input = $this->input->post();
+        $subject = dhtmlspecialchars(trim(array_value($input, 'subject')));
+        $subject = !empty($subject) ? str_replace("\t", ' ', $subject) : $subject;
+        if(empty($subject)) {
+            show_error('subject_error');
+        }
+
+        $params = array(
+            'subject' => $subject,
+        );
+        $tid = $this->_thread_model->new_thread($params);
+
+        if(!$tid) {
+            show_error('new_thread_error');
+        }
+
+        if($aids = array_value($input, 'aids')) {
+            $this->_thread_model->new_thread_update($tid, $aids);
+        }
+
+        echo 'Success!';
+    }
+
+    public function ajax_upload() {
+        $result = $this->_thread_model->do_upload();
 
         echo json_encode($result);
     }

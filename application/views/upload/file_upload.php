@@ -49,6 +49,14 @@
     <h1>jQuery File Upload Demo</h1>
     <!-- The file upload form used as target for the file upload widget -->
     <form id="fileupload" action="" method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-lg-3">标题: </label>
+                <div class="col-lg-9">
+                    <input type="text" class="form-control" name="subject" required>
+                </div>
+            </div>
+        </div>
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
             <div class="col-lg-7">
@@ -77,6 +85,13 @@
         </div>
         <!-- The table listing the files available for upload/download -->
         <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-lg-offset-3 col-lg-9">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 <!-- The template to display files available for upload -->
@@ -149,6 +164,7 @@
                     <i class="glyphicon glyphicon-ban-circle"></i>
                     <span>Cancel</span>
                 </button>
+                <input type="hidden" name="aids[]" value="{%=file.aid%}">
             {% } %}
         </td>
     </tr>
@@ -160,7 +176,7 @@
         $('#fileupload').fileupload({
             // Uncomment the following to send cross-domain cookies:
             //xhrFields: {withCredentials: true},
-            url: '<?=base_url()?>upload/img_upload'
+            url: '<?=base_url()?>upload/ajax_upload'
         });
     });
 </script>

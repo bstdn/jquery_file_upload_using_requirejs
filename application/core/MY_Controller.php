@@ -9,6 +9,7 @@
 /**
  * Class MY_Controller
  * @property CI_Router $router
+ * @property MY_Input $input
  *
  * 自定义类库:
  * @property MY_Upload $upload
