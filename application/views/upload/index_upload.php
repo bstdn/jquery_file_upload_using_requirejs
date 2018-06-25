@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <![endif]-->
     <meta charset="utf-8">
-    <title>jQuery File Upload Demo</title>
+    <title>jQuery File Upload Using Requirejs Demo</title>
     <meta name="description" content="File Upload widget with multiple file selection, drag&amp;drop support, progress bars, validation and preview images, audio and video for jQuery. Supports cross-domain, chunked and resumable file uploads and client-side image resizing. Works with any server-side platform (PHP, Python, Ruby on Rails, Java, Node.js, Go etc.) that supports standard HTML form file uploads.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap styles -->
@@ -46,7 +46,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>jQuery File Upload Demo</h1>
+    <h1>jQuery File Upload Using Requirejs Demo</h1>
     <!-- The file upload form used as target for the file upload widget -->
     <form id="fileupload" action="" method="POST" enctype="multipart/form-data">
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
